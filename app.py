@@ -179,20 +179,20 @@ def run_inference(complaint_text: str, model_name: str):
     probs, prediction = MODEL_MAP[model_name](complaint_text)
     return prediction, probs
 
-with gr.Blocks(
-    title="Consumer Complaint Classifier",
-    theme=gr.themes.Soft(
-        primary_hue="blue",
-        secondary_hue="indigo",
-        neutral_hue="slate",
-    ),
-    css="""
-    .gradio-container { max-width: 960px !important; margin: auto; }
-    .header-box { text-align: center; padding: 1.5rem 1rem 0.5rem; }
-    .header-box h1 { font-size: 2rem; font-weight: 700; color: #1e3a5f; }
-    .header-box p  { color: #4a5568; font-size: 0.95rem; }
-    """
-) as demo:
+THEME = gr.themes.Soft(
+    primary_hue="blue",
+    secondary_hue="indigo",
+    neutral_hue="slate",
+)
+
+CSS = """
+.gradio-container { max-width: 960px !important; margin: auto; }
+.header-box { text-align: center; padding: 1.5rem 1rem 0.5rem; }
+.header-box h1 { font-size: 2rem; font-weight: 700; color: #1e3a5f; }
+.header-box p  { color: #4a5568; font-size: 0.95rem; }
+"""
+
+with gr.Blocks(title="Consumer Complaint Classifier") as demo:
 
     # ── Header ──────────────────────────────────────────────────────
     gr.HTML("""
@@ -312,4 +312,4 @@ classifying complaints into 5 product categories.
     )
 
 if __name__ == "__main__":
-    demo.launch(share=False)
+    demo.launch(share=False, theme=THEME, css=CSS)
