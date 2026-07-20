@@ -19,7 +19,7 @@ An end-to-end NLP text classification pipeline that automatically predicts the c
 
 ## 📂 Dataset
 
-**Source:** [Consumer Financial Protection Bureau (CFPB) — Consumer Complaint Database](https://www.consumerfinance.gov/data-research/consumer-complaints/)
+**Source:** [Consumer Complaints Dataset for NLP — Kaggle](https://www.kaggle.com/datasets/shashwatwork/consume-complaints-dataset-fo-nlp)
 
 | Split | Samples |
 |---|---|
