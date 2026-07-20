@@ -234,9 +234,29 @@ cd "project nlp"
 pip install -r requirements.txt
 ```
 
-### 3. Download model artifacts
+### 3. Download model artifacts (⚠️ IMPORTANT)
 
-Download the model files separately (excluded from git due to size) and place them in the project root.
+Due to GitHub's file size limits (100MB per file), the trained model weights are **not** included in this repository. 
+
+To run the app fully, you have two options:
+
+**Option A (If you have the files):**
+Place the model files in the `models/` directory so the structure looks exactly like this:
+```text
+models/
+├── best_simplernn.keras
+├── best_lstm.keras
+├── best_gru.keras
+└── distilbert_saved/
+    ├── config.json
+    ├── model.safetensors
+    └── ...
+```
+
+**Option B (Train them yourself):**
+Run the notebooks provided in the `notebooks/` folder (especially `06_DistilBERT.ipynb`) on Kaggle or Colab, export the saved models, and place them in the `models/` directory as shown above.
+
+*(Note: If the models are missing, the app will still launch but will display a warning and fall back to available models or show "Model not loaded".)*
 
 ### 4. Launch the Gradio app
 
