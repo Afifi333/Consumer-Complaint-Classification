@@ -46,9 +46,11 @@ CLASS_NAMES_INTERNAL = [
 # Load artifacts
 # ─────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ARTIFACTS_DIR = os.path.join(BASE_DIR, "artifacts")
+MODELS_DIR    = os.path.join(BASE_DIR, "models")
 
-def load_pkl(fname):
-    path = os.path.join(BASE_DIR, fname)
+def load_pkl(fname, subdir="artifacts"):
+    path = os.path.join(BASE_DIR, subdir, fname)
     if not os.path.exists(path):
         return None
     with open(path, "rb") as f:
@@ -62,7 +64,7 @@ bert_le        = load_pkl("bert_label_encoder.pkl")
 def load_keras(fname):
     if not TF_AVAILABLE:
         return None
-    path = os.path.join(BASE_DIR, fname)
+    path = os.path.join(MODELS_DIR, fname)
     if not os.path.exists(path):
         return None
     try:
@@ -126,7 +128,7 @@ def predict_rnn_based(text: str, model, le):
 
 def predict_distilbert(text: str):
     """Run inference using a saved DistilBERT via HuggingFace pipeline."""
-    model_dir = os.path.join(BASE_DIR, "distilbert_saved")
+    model_dir = os.path.join(MODELS_DIR, "distilbert_saved")
     if not os.path.isdir(model_dir):
         return {}, "DistilBERT saved model not found. Re-run notebook cell 46 to export it."
     try:

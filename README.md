@@ -49,37 +49,46 @@ An end-to-end NLP text classification pipeline that automatically predicts the c
 ```
 project nlp/
 │
-├── 01_EDA_Cleaning.ipynb               # Data exploration & text cleaning
-├── 02-preprocessing-rnn.ipynb          # Tokenization, padding, data prep for RNNs
-├── 03_simpleRNN.ipynb                  # SimpleRNN model training & evaluation
-├── 04-lstm.ipynb                       # LSTM model training & evaluation
-├── 05_GRU.ipynb                        # GRU model training & evaluation
-├── 06_DistilBERT.ipynb                 # DistilBERT fine-tuning (HuggingFace)
-├── 07_Model_Comparison.ipynb           # Side-by-side comparison & final ranking
+├── notebooks/                              # All training notebooks (run in order)
+│   ├── 01_EDA_Cleaning.ipynb               #  → Data exploration & text cleaning
+│   ├── 02-preprocessing-rnn.ipynb          #  → Tokenization, padding, data prep
+│   ├── 03_simpleRNN.ipynb                  #  → SimpleRNN training & evaluation
+│   ├── 04-lstm.ipynb                       #  → LSTM training & evaluation
+│   ├── 05_GRU.ipynb                        #  → GRU training & evaluation
+│   ├── 06_DistilBERT.ipynb                 #  → DistilBERT fine-tuning (HuggingFace)
+│   └── 07_Model_Comparison.ipynb           #  → Side-by-side comparison & ranking
 │
-├── app.py                              # ⭐ Gradio deployment app
-├── requirements.txt                    # Python dependencies
-├── .gitignore
+├── results/                                # Evaluation outputs
+│   ├── simplernn_results.csv               #  → SimpleRNN metrics
+│   ├── lstm_results.csv                    #  → LSTM metrics
+│   ├── gru_results.csv                     #  → GRU metrics
+│   ├── distilbert_results.csv              #  → DistilBERT metrics
+│   ├── distilbert_classification_report.csv#  → Per-class DistilBERT report
+│   ├── model_comparison.csv                #  → Final ranked comparison table
+│   ├── simplernn_history.pkl               #  → SimpleRNN training history
+│   ├── lstm_history.pkl                    #  → LSTM training history
+│   └── gru_history.pkl                     #  → GRU training history
 │
-├── simplernn_results.csv               # Evaluation metrics — SimpleRNN
-├── lstm_results.csv                    # Evaluation metrics — LSTM
-├── gru_results.csv                     # Evaluation metrics — GRU
-├── distilbert_results.csv              # Evaluation metrics — DistilBERT
-├── distilbert_classification_report.csv # Per-class report — DistilBERT
-├── model_comparison.csv                # Final ranked comparison table
+├── artifacts/                              # Reusable inference artifacts
+│   ├── tokenizer.pkl                       #  → Fitted Keras tokenizer (vocab=20k)
+│   ├── label_encoder.pkl                   #  → LabelEncoder for RNN models
+│   └── bert_label_encoder.pkl              #  → LabelEncoder for DistilBERT
 │
-├── tokenizer.pkl                       # Fitted Keras tokenizer (vocab=20,000)
-├── label_encoder.pkl                   # LabelEncoder for RNN models
-├── bert_label_encoder.pkl              # LabelEncoder for DistilBERT
+├── models/                                 # (gitignored — download separately)
+│   ├── best_simplernn.keras                #  → Best SimpleRNN weights
+│   ├── best_lstm.keras                     #  → Best LSTM weights
+│   ├── best_gru.keras                      #  → Best GRU weights
+│   └── distilbert_saved/                   #  → HuggingFace saved DistilBERT
 │
-│ ── (excluded from git — too large) ──
-├── cleaned_complaints.csv              # Preprocessed dataset (98 MB)
-├── X_train.npy / X_test.npy           # Padded sequences (125 MB / 31 MB)
-├── y_train.npy / y_test.npy           # Labels
-├── best_simplernn.keras               # Best SimpleRNN weights
-├── best_lstm.keras                    # Best LSTM weights
-├── best_gru.keras                     # Best GRU weights
-└── distilbert_saved/                  # HuggingFace saved model directory
+├── data/                                   # (gitignored — download separately)
+│   ├── cleaned_complaints.csv              #  → Preprocessed dataset (98 MB)
+│   ├── X_train.npy / X_test.npy           #  → Padded sequences
+│   └── y_train.npy / y_test.npy           #  → Labels
+│
+├── app.py                                  # ⭐ Gradio deployment app
+├── README.md
+├── requirements.txt
+└── .gitignore
 ```
 
 ---

@@ -11,22 +11,13 @@ env/
 # Jupyter checkpoints
 .ipynb_checkpoints/
 
-# Large data files (too big for GitHub)
-cleaned_complaints.csv
-*.npy
+# ── Large data files (too big for GitHub) ──────────────
+data/
 
-# Trained Keras model weights (large — host separately or use Git LFS)
-*.keras
-*.h5
-
-# Pickle files (models/tokenizers) — large
-# Comment out if you WANT to push tokenizer.pkl / label_encoder.pkl
-# tokenizer.pkl
-# label_encoder.pkl
-# bert_label_encoder.pkl
-
-# HuggingFace saved model directory
-distilbert_saved/
+# ── Trained model weights ──────────────────────────────
+models/*.keras
+models/*.h5
+models/distilbert_saved/
 
 # OS files
 .DS_Store
