@@ -126,21 +126,17 @@ def predict_rnn_based(text: str, model, le):
     return result, f"**{best}** ({conf:.1%})"
 
 
-# Check once at startup whether the DistilBERT saved model exists
-DISTILBERT_DIR = os.path.join(MODELS_DIR, "distilbert_saved")
-DISTILBERT_AVAILABLE = os.path.isdir(DISTILBERT_DIR)
+# Hugging Face Repository for DistilBERT
+HF_REPO_ID = "Mohamed123AFIFI/consumer-complaint-distilbert"
+DISTILBERT_AVAILABLE = True  # It will auto-download from Hugging Face
 
 def predict_distilbert(text: str):
-    """Run DistilBERT inference if saved model exists, else fall back to GRU."""
-    if not DISTILBERT_AVAILABLE:
-        # ── Fallback: use GRU (second-best model, always available locally) ──
-        probs, label = predict_rnn_based(text, gru_model, label_encoder)
-        return probs, label
+    """Run DistilBERT inference directly from Hugging Face Hub."""
     try:
         clf = pipeline(
             "text-classification",
-            model=DISTILBERT_DIR,
-            tokenizer=DISTILBERT_DIR,
+            model=HF_REPO_ID,
+            tokenizer=HF_REPO_ID,
             return_all_scores=True,
         )
         raw = clf(text[:512])[0]
@@ -175,11 +171,7 @@ DESCRIPTIONS = {
     "SimpleRNN":         "Val Accuracy: 76.1% | Macro F1: 0.592",
     "LSTM":              "Val Accuracy: 88.2% | Macro F1: 0.847",
     "GRU":               "Val Accuracy: 88.4% | Macro F1: 0.849",
-    "DistilBERT (Best)": (
-        "Val Accuracy: 89.7% | Macro F1: 0.865 ⭐"
-        if DISTILBERT_AVAILABLE
-        else "⚠️ Model files not found locally — running as GRU fallback (88.4% accuracy)"
-    ),
+    "DistilBERT (Best)": "Val Accuracy: 89.7% | Macro F1: 0.865 ⭐",
 }
 
 EXAMPLE_COMPLAINTS = [
@@ -219,25 +211,6 @@ with gr.Blocks(title="Consumer Complaint Classifier") as demo:
            Compare SimpleRNN · LSTM · GRU · DistilBERT (fine-tuned).</p>
     </div>
     """)
-
-    # ── DistilBERT fallback notice ───────────────────────────────────
-    if not DISTILBERT_AVAILABLE:
-        gr.HTML("""
-        <div style="
-            background: #7c3aed22;
-            border: 1px solid #7c3aed;
-            border-radius: 10px;
-            padding: 0.8rem 1.2rem;
-            margin: 0.5rem 0 1rem;
-            color: #c4b5fd;
-            font-size: 0.9rem;
-        ">
-            ⚠️ <b>DistilBERT model files not found locally.</b>
-            The model was trained on Kaggle — export it from notebook cell 46
-            and place it in <code>models/distilbert_saved/</code> to enable it.<br>
-            <b>Currently using GRU as fallback</b> (88.4% accuracy — second best model).
-        </div>
-        """)
 
     # ── Main Tab ────────────────────────────────────────────────────
     with gr.Tabs():

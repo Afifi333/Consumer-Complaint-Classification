@@ -234,29 +234,24 @@ cd "project nlp"
 pip install -r requirements.txt
 ```
 
-### 3. Download model artifacts (⚠️ IMPORTANT)
+### 3. Download model artifacts
 
-Due to GitHub's file size limits (100MB per file), the trained model weights are **not** included in this repository. 
+The **DistilBERT** model is hosted on Hugging Face Hub (`Mohamed123AFIFI/consumer-complaint-distilbert`) and will be **downloaded automatically** the first time you run the app.
 
-To run the app fully, you have two options:
+For the RNN models (SimpleRNN, LSTM, GRU), due to GitHub's file size limits (100MB per file), their trained weights are **not** included. 
 
-**Option A (If you have the files):**
-Place the model files in the `models/` directory so the structure looks exactly like this:
+To run the RNN models locally, you must:
+1. Run the notebooks provided in the `notebooks/` folder on Kaggle or Colab.
+2. Export the saved models.
+3. Place them in the `models/` directory so the structure looks exactly like this:
 ```text
 models/
 ├── best_simplernn.keras
 ├── best_lstm.keras
-├── best_gru.keras
-└── distilbert_saved/
-    ├── config.json
-    ├── model.safetensors
-    └── ...
+└── best_gru.keras
 ```
 
-**Option B (Train them yourself):**
-Run the notebooks provided in the `notebooks/` folder (especially `06_DistilBERT.ipynb`) on Kaggle or Colab, export the saved models, and place them in the `models/` directory as shown above.
-
-*(Note: If the models are missing, the app will still launch but will display a warning and fall back to available models or show "Model not loaded".)*
+*(Note: Without these files, DistilBERT will still work perfectly, but the RNN models will show "Model not loaded".)*
 
 ### 4. Launch the Gradio app
 
